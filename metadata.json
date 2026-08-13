@@ -1,0 +1,6 @@
+{
+  "name": "Generator RPP Kurikulum Merdeka",
+  "description": "Aplikasi pembuat RPP dan Modul Ajar Kurikulum Merdeka lengkap dengan format resmi, pilihan mata pelajaran, fase/kelas, model pembelajaran, serta fitur cetak/download PDF.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

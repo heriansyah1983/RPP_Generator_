@@ -493,6 +493,47 @@ export const QuizModal: React.FC<QuizModalProps> = ({
                   />
                 </div>
 
+                {/* Question Navigator Grid (1..20) */}
+                <div className="bg-zinc-950/80 border border-zinc-800 p-3 rounded-2xl">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Navigasi Soal (1 - {totalQuestions}):</span>
+                    <span className="text-[11px] text-zinc-500">
+                      Terjawab: {Object.keys(userAnswers).length} / {totalQuestions}
+                    </span>
+                  </div>
+                  <div className="flex flex-wrap gap-1.5 justify-center sm:justify-start">
+                    {quizSet.questions.map((q, qIdx) => {
+                      const isAnswered = userAnswers[q.id] !== undefined;
+                      const isRight = userAnswers[q.id] === q.correctIndex;
+                      const isCurrent = qIdx === currentIndex;
+
+                      let numStyle = "bg-zinc-900 text-zinc-400 border-zinc-800 hover:bg-zinc-800";
+                      if (isAnswered) {
+                        if (isRight) {
+                          numStyle = "bg-emerald-950 text-emerald-400 border-emerald-700 font-bold";
+                        } else {
+                          numStyle = "bg-rose-950 text-rose-400 border-rose-700 font-bold";
+                        }
+                      }
+
+                      if (isCurrent) {
+                        numStyle += " ring-2 ring-amber-400 border-amber-400 text-white font-black scale-105 z-10 shadow-lg";
+                      }
+
+                      return (
+                        <button
+                          key={q.id}
+                          onClick={() => setCurrentIndex(qIdx)}
+                          title={`Soal #${qIdx + 1} (${q.level})`}
+                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-lg text-xs border transition flex items-center justify-center cursor-pointer ${numStyle}`}
+                        >
+                          {qIdx + 1}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+
                 {/* Question Text Box */}
                 <div className="bg-zinc-950/90 border border-zinc-800 p-5 sm:p-6 rounded-2xl shadow-lg">
                   <h4 className="text-base sm:text-lg font-bold text-zinc-100 leading-relaxed">

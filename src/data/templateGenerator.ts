@@ -13,7 +13,7 @@ export function generateTemplateRPP(formData: RPPFormData): RPPContent {
   const materi = formData.materiPokok.trim() || 'Materi Utama Pembelajaran';
   const alokasi = formData.alokasiWaktu.trim() || '2 x 40 menit';
   const fase = formData.faseKelas || 'Fase A: Kelas 1 dan Kelas 2';
-  const kondisi = formData.kondisiDiagnostikSiswa || 'Reguler / Tipikal (Kesiapan Belajar Rata-rata & Homogen)';
+  const kondisi = formData.targetPesertaDidik || 'Reguler / Tipikal (Kesiapan Belajar Rata-rata & Homogen)';
 
   // Customize activities according to model pembelajaran & kondisi diagnostik (explicit syntax: Memahami, Mengaplikasikan, Merefleksikan)
   let sintaksKegiatanInti: string[] = [];

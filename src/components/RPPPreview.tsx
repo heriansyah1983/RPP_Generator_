@@ -353,15 +353,52 @@ export const RPPPreview: React.FC<RPPPreviewProps> = ({
               </div>
 
               {/* Kegiatan Inti */}
-              <div className="bg-slate-50 p-3 rounded-xl border border-slate-200">
-                <span className="font-bold text-slate-800 text-xs uppercase tracking-wider block mb-1 text-emerald-800">
-                  B. Kegiatan Inti (Model: {editedRpp.informasiUmum.modelPembelajaran})
-                </span>
-                <ul className="list-disc pl-5 space-y-1.5 text-slate-700">
-                  {editedRpp.dokumenPerencanaan.langkahPembelajaran.kegiatanInti.map((step, idx) => (
-                    <li key={idx}>{step}</li>
-                  ))}
-                </ul>
+              <div className="bg-slate-50 p-3.5 rounded-xl border border-slate-200 space-y-2">
+                <div className="flex items-center justify-between border-b border-slate-200 pb-1.5 mb-2">
+                  <span className="font-bold text-slate-800 text-xs uppercase tracking-wider text-emerald-800">
+                    B. Kegiatan Inti (Model: {editedRpp.informasiUmum.modelPembelajaran})
+                  </span>
+                  <span className="text-[10px] font-bold text-slate-500 bg-slate-200 px-2 py-0.5 rounded-full">
+                    Sintaksis: Memahami • Mengaplikasikan • Merefleksikan
+                  </span>
+                </div>
+
+                <div className="space-y-2 text-slate-700 text-xs leading-relaxed">
+                  {editedRpp.dokumenPerencanaan.langkahPembelajaran.kegiatanInti.map((step, idx) => {
+                    let badgeColor = "bg-slate-200 text-slate-800 border-slate-300";
+                    let tagText = "";
+                    let contentText = step;
+
+                    if (step.startsWith('[MEMAHAMI]')) {
+                      badgeColor = "bg-blue-100 text-blue-900 border-blue-300 font-extrabold";
+                      tagText = "MEMAHAMI";
+                      contentText = step.replace('[MEMAHAMI]', '').trim();
+                    } else if (step.startsWith('[MENGAPLIKASIKAN]')) {
+                      badgeColor = "bg-amber-100 text-amber-900 border-amber-300 font-extrabold";
+                      tagText = "MENGAPLIKASIKAN";
+                      contentText = step.replace('[MENGAPLIKASIKAN]', '').trim();
+                    } else if (step.startsWith('[MEREFLEKSIKAN]')) {
+                      badgeColor = "bg-purple-100 text-purple-900 border-purple-300 font-extrabold";
+                      tagText = "MEREFLEKSIKAN";
+                      contentText = step.replace('[MEREFLEKSIKAN]', '').trim();
+                    }
+
+                    return (
+                      <div key={idx} className="flex items-start gap-2 bg-white p-2.5 rounded-lg border border-slate-200/80 shadow-2xs">
+                        {tagText ? (
+                          <span className={`px-2 py-0.5 text-[10px] uppercase rounded border shrink-0 mt-0.5 ${badgeColor}`}>
+                            {tagText}
+                          </span>
+                        ) : (
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0 mt-1.5" />
+                        )}
+                        <span className="flex-1 text-slate-800">
+                          {contentText}
+                        </span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
 
               {/* Penutup */}

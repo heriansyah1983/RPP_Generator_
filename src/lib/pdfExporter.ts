@@ -319,9 +319,19 @@ export function exportToDoc(rpp: any, fileName: string = 'RPP_Kurikulum_Merdeka.
       ${rpp.dokumenPerencanaan.langkahPembelajaran.pendahuluan.map((step: string) => `<li>${step}</li>`).join('')}
     </ul>
 
-    <p><b>B. Kegiatan Inti (${rpp.informasiUmum.modelPembelajaran}):</b></p>
+    <p><b>B. Kegiatan Inti (Sintaksis Model ${rpp.informasiUmum.modelPembelajaran}):</b></p>
     <ul>
-      ${rpp.dokumenPerencanaan.langkahPembelajaran.kegiatanInti.map((step: string) => `<li>${step}</li>`).join('')}
+      ${rpp.dokumenPerencanaan.langkahPembelajaran.kegiatanInti.map((step: string) => {
+        let formattedStep = step;
+        if (step.startsWith('[MEMAHAMI]')) {
+          formattedStep = `<b>[TAHAP MEMAHAMI]</b> ${step.replace('[MEMAHAMI]', '').trim()}`;
+        } else if (step.startsWith('[MENGAPLIKASIKAN]')) {
+          formattedStep = `<b>[TAHAP MENGAPLIKASIKAN]</b> ${step.replace('[MENGAPLIKASIKAN]', '').trim()}`;
+        } else if (step.startsWith('[MEREFLEKSIKAN]')) {
+          formattedStep = `<b>[TAHAP MEREFLEKSIKAN]</b> ${step.replace('[MEREFLEKSIKAN]', '').trim()}`;
+        }
+        return `<li style="margin-bottom: 6px;">${formattedStep}</li>`;
+      }).join('')}
     </ul>
 
     <p><b>C. Kegiatan Penutup:</b></p>
